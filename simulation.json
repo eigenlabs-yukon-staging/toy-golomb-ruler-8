@@ -1,0 +1,18 @@
+{
+  "initial_results": [
+    {"passed": true, "ruler_length": 127, "message": "all 28 pairwise differences are distinct"}
+  ],
+  "initial_decision": {
+    "kind": "judgment",
+    "requests": [],
+    "judgment": {
+      "valid": true,
+      "scores": null,
+      "reason": "The golomb_gate check passed on the marks 0, 1, 3, 7, 15, 31, 63, 127, which are the marks in the claim; the verifier takes ruler_length 127 from it.",
+      "evidence_refs": ["source:proof.md", "run:initial:0"],
+      "review_standard": "toy-golomb-ruler-8-review-v1"
+    }
+  },
+  "followup_results": [],
+  "final_decision": null
+}

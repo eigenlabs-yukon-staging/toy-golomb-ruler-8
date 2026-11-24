@@ -1,0 +1,20 @@
+[
+  {"id": "baseline-powers-of-two", "check": "golomb_gate",
+   "inputs": {"marks": [0, 1, 3, 7, 15, 31, 63, 127]},
+   "expected": {"passed": true, "ruler_length": 127}},
+  {"id": "optimal-length-34", "check": "golomb_gate",
+   "inputs": {"marks": [0, 1, 4, 9, 15, 22, 32, 34]},
+   "expected": {"passed": true, "ruler_length": 34}},
+  {"id": "repeated-difference", "check": "golomb_gate",
+   "inputs": {"marks": [0, 1, 2, 4, 8, 16, 32, 64]},
+   "expected": {"passed": false, "ruler_length": 0}},
+  {"id": "does-not-start-at-zero", "check": "golomb_gate",
+   "inputs": {"marks": [1, 2, 4, 8, 16, 32, 64, 128]},
+   "expected": {"passed": false, "ruler_length": 0}},
+  {"id": "seven-marks", "check": "golomb_gate",
+   "inputs": {"marks": [0, 1, 4, 9, 15, 22, 32]},
+   "expected": {"passed": false, "ruler_length": 0}},
+  {"id": "not-increasing", "check": "golomb_gate",
+   "inputs": {"marks": [0, 4, 1, 9, 15, 22, 32, 34]},
+   "expected": {"passed": false, "ruler_length": 0}}
+]

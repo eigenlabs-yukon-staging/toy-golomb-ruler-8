@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 2,
+  "name": "toy-golomb-ruler-8",
+  "tracks": [
+    {
+      "name": "main",
+      "description": "Find a Golomb ruler with 8 marks: 8 integers starting at 0 whose 28 pairwise differences are all different. The score is the ruler length (the largest mark); shorter is better. The best known length is 34.",
+      "category": "math",
+      "mode": "pareto",
+      "promotionMode": "automatic",
+      "direction": "-",
+      "objectives": [
+        {
+          "name": "ruler_length",
+          "direction": "-"
+        }
+      ],
+      "paretoPolicies": {
+        "scoring": {
+          "version": "golomb-length-v1"
+        },
+        "validity": {
+          "version": "golomb-distinct-differences-v1"
+        }
+      },
+      "editablePaths": [
+        "submission"
+      ],
+      "submissionAdmission": {
+        "version": 1,
+        "submissionReferencesEnabled": false
+      },
+      "setupCommand": [
+        "llm-verifier",
+        "intake",
+        "--root",
+        ".",
+        "--out",
+        ".yukon/work/intake.json"
+      ],
+      "benchmarkCommand": [
+        "llm-verifier",
+        "finalize",
+        "--intake",
+        ".yukon/work/intake.json",
+        "--initial",
+        ".yukon/work/initial.json",
+        "--initial-review",
+        ".yukon/work/review.json",
+        "--score",
+        ".yukon/score.json",
+        "--dossier",
+        ".yukon/dossier.json"
+      ],
+      "scorePath": ".yukon/score.json",
+      "maxSubmissionBytes": 65536,
+      "runner": {
+        "provider": "github-actions",
+        "workflow": "benchmark.yml",
+        "scoreArtifactName": "benchmark-score",
+        "maxConcurrentWorkflows": 2
+      }
+    }
+  ]
+}

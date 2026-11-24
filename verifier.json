@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "id": "toy-golomb-ruler-8",
+  "rules_path": "rules.md",
+  "review_standard": "toy-golomb-ruler-8-review-v1",
+  "objectives": [
+    {
+      "name": "ruler_length",
+      "direction": "-",
+      "unit": "length",
+      "semantics": "The length of the submitted 8-mark Golomb ruler, that is its largest mark, exactly as reported by a passing golomb_gate result for the marks in the submission. Lower is better. Never inferred from prose.",
+      "score_source": {
+        "check": "golomb_gate",
+        "field": "ruler_length"
+      },
+      "score_minimum": {
+        "numerator": "28",
+        "denominator": "1"
+      },
+      "score_maximum": {
+        "numerator": "1000",
+        "denominator": "1"
+      }
+    }
+  ],
+  "allow_unscored": false,
+  "policies": {
+    "scoring": {
+      "version": "golomb-length-v1"
+    },
+    "validity": {
+      "version": "golomb-distinct-differences-v1"
+    }
+  },
+  "supported_policies": {
+    "scoring": [
+      {
+        "selector": {
+          "version": "golomb-length-v1"
+        },
+        "instructions": "Do not choose a number. The verifier takes ruler_length from the passing golomb_gate result for the submitted marks."
+      }
+    ],
+    "validity": [
+      {
+        "selector": {
+          "version": "golomb-distinct-differences-v1"
+        },
+        "instructions": "Apply rules.md. Return valid exactly when the golomb_gate check passed on the marks the submission declares and those marks are the ones stated in the claim. The gate's arithmetic is the whole test: do not reject a passing ruler for its prose, and do not accept a failing one for any argument."
+      }
+    ]
+  },
+  "provider": {
+    "model": "gpt-4o",
+    "max_completion_tokens": 4096,
+    "timeout_seconds": 300,
+    "max_attempts": 1
+  },
+  "limits": {
+    "max_followups": 0,
+    "max_files": 16,
+    "max_file_bytes": 65536,
+    "max_submission_bytes": 65536
+  },
+  "checkers": [
+    {
+      "id": "golomb_gate",
+      "description": "Checks that the declared marks are exactly 8 strictly increasing integers starting at 0, at most 1000, with all 28 pairwise differences distinct, and reports the largest mark as ruler_length. Pure arithmetic.",
+      "source": "checkers/golomb_gate.py",
+      "files": [
+        "checkers/golomb_gate.py"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "marks": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            },
+            "minItems": 1,
+            "maxItems": 16
+          }
+        },
+        "required": [
+          "marks"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "passed": {
+            "type": "boolean"
+          },
+          "ruler_length": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "passed",
+          "ruler_length",
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "required_for_score": true
+    }
+  ]
+}
